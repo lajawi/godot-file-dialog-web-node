@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://ljujidls0lna"]
+
+[ext_resource type="Script" uid="uid://b75unaeamgjm2" path="res://addons/file-dialog-web/file_dialog_web.gd" id="1_d75w3"]
+
+[node name="Node" type="Node" unique_id=851985838]
+
+[node name="FileDialogWeb" type="FileDialog" parent="." unique_id=2011503193]
+oversampling_override = 1.0
+title = "Open File(s)"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.png;PNGs;image/png", "*.jpg,*.jpeg;JPEGs;image/jpeg")
+use_native_dialog = true
+script = ExtResource("1_d75w3")
+metadata/_custom_type_script = "uid://b75unaeamgjm2"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2075393158]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1696839754]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=1354072811]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/CenterContainer" unique_id=2085903547]
+layout_mode = 2
+text = "Open File Dialog Web"
+
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/Button" to="FileDialogWeb" method="popup_file_dialog_web"]
