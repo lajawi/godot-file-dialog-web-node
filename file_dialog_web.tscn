@@ -43,30 +43,6 @@ use_native_dialog = true
 script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
-[node name="DownloadDialog" type="FileDialog" parent="." unique_id=2047395080]
-oversampling_override = 1.0
-display_mode = 1
-access = 2
-use_native_dialog = true
-
-[node name="UploadTextDialog" type="FileDialog" parent="." unique_id=92718564]
-oversampling_override = 1.0
-title = "Open a File"
-file_mode = 0
-display_mode = 1
-access = 2
-filters = PackedStringArray("*.txt;Text Files;text/plain", "*.md;Markdown Files;text/markdown")
-use_native_dialog = true
-
-[node name="UploadImageDialog" type="FileDialog" parent="." unique_id=292872815]
-oversampling_override = 1.0
-title = "Open a File"
-file_mode = 0
-display_mode = 1
-access = 2
-filters = PackedStringArray("*.png;PNG Files;image/png", "*.jpg,*.jpeg;JPEG Files;image/jpeg")
-use_native_dialog = true
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2075393158]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1696839754]
