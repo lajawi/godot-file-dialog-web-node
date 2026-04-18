@@ -6,6 +6,8 @@ signal web_dir_selected(files: Array[File])
 signal web_file_selected(file: File)
 signal web_files_selected(files: Array[File])
 
+const JS_FILE_PATH := "res://addons/file-dialog-web/file_dialog_web.js"
+
 @export var file: PackedByteArray
 
 var _js_interface: JavaScriptObject
@@ -36,7 +38,11 @@ func popup_file_dialog_web() -> void:
 		_:
 			return popup_file_dialog()
 
-	var js_file := FileAccess.open("res://addons/file-dialog-web/file_dialog_web.js", FileAccess.READ)
+	if not FileAccess.file_exists(JS_FILE_PATH):
+		push_error("JS file not included in export. Include '*.js' files in general or 'addons/file-dialog-web/file_dialog_web.js' specifically in the export's 'include_filter' setting.")
+		return popup_file_dialog()
+
+	var js_file := FileAccess.open(JS_FILE_PATH, FileAccess.READ)
 	var js := js_file.get_as_text()
 
 	JavaScriptBridge.eval(js, true)
