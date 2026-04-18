@@ -5,11 +5,15 @@ const DOWNLOAD_TEXT := 1
 const DOWNLOAD_IMAGE := 2
 const UPLOAD_TEXT := 4
 const UPLOAD_IMAGE := 5
+const UPLOAD_FILES := 6
+const UPLOAD_FOLDER := 7
 
 @export_group("Dialogs", "_dialog")
 @export var _dialog_web_download: FileDialogWeb
 @export var _dialog_web_upload_text: FileDialogWeb
 @export var _dialog_web_upload_image: FileDialogWeb
+@export var _dialog_web_upload_files: FileDialogWeb
+@export var _dialog_web_upload_folder: FileDialogWeb
 
 @export_group("Example Files", "_file")
 @export_file var _file_text_path: String
@@ -24,10 +28,14 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		_dialog_web_upload_text.web_file_selected.connect(_on_web_file_selected)
 		_dialog_web_upload_image.web_file_selected.connect(_on_web_file_selected)
+		_dialog_web_upload_files.web_files_selected.connect(_on_web_files_selected)
+		_dialog_web_upload_folder.web_dir_selected.connect(_on_web_dir_selected)
 	else:
 		_dialog_web_download.file_selected.connect(_on_file_selected)
 		_dialog_web_upload_text.file_selected.connect(_on_file_selected)
 		_dialog_web_upload_image.file_selected.connect(_on_file_selected)
+		_dialog_web_upload_files.files_selected.connect(_on_files_selected)
+		_dialog_web_upload_folder.dir_selected.connect(_on_dir_selected)
 
 
 #region Option Button Selected
@@ -41,6 +49,10 @@ func _on_item_selected(index: int) -> void:
 			_upload_text()
 		UPLOAD_IMAGE:
 			_upload_image()
+		UPLOAD_FILES:
+			_upload_files()
+		UPLOAD_FOLDER:
+			_upload_folder()
 		_:
 			return
 
@@ -69,6 +81,14 @@ func _upload_text() -> void:
 
 func _upload_image() -> void:
 	_dialog_web_upload_image.popup_file_dialog_web()
+
+
+func _upload_files() -> void:
+	_dialog_web_upload_files.popup_file_dialog_web()
+
+
+func _upload_folder() -> void:
+	_dialog_web_upload_folder.popup_file_dialog_web()
 #endregion
 
 
@@ -98,6 +118,15 @@ func _on_file_selected(path: String) -> void:
 			var texture := PortableCompressedTexture2D.new()
 			texture.create_from_image(image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
 			_display_upload("", texture)
+
+
+func _on_files_selected(paths: PackedStringArray):
+	var _text := "\n".join(paths)
+	_display_upload(_text)
+
+
+func _on_dir_selected(dir: String):
+	_display_upload(dir)
 #endregion
 
 
@@ -112,6 +141,16 @@ func _on_web_file_selected(file: FileDialogWeb.File) -> void:
 
 func _process_upload_text(file: FileDialogWeb.File) -> void:
 	_display_upload(file.data)
+
+
+func _on_web_files_selected(files: Array[FileDialogWeb.File]) -> void:
+	var _text := "\n".join(files.map(func(f): return f.relativePath.path_join(f.name)))
+	_display_upload(_text)
+
+
+func _on_web_dir_selected(files: Array[FileDialogWeb.File]) -> void:
+	var _text := "\n".join(files.map(func(f): return f.relativePath))
+	_display_upload(_text)
 
 
 func _process_upload_image(file: FileDialogWeb.File) -> void:
