@@ -6,13 +6,19 @@
 
 [node name="FileDialogWeb" type="FileDialog" parent="." unique_id=2011503193]
 oversampling_override = 1.0
-title = "Open File(s)"
-file_mode = 1
+title = "Open a File"
+file_mode = 0
 access = 2
 filters = PackedStringArray("*.png;PNGs;image/png", "*.jpg,*.jpeg;JPEGs;image/jpeg")
 use_native_dialog = true
 script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1279838868]
+title = "Open a File or Directory"
+file_mode = 3
+access = 2
+use_native_dialog = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2075393158]
 
@@ -32,8 +38,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Control/CenterContainer" unique_id=2085903547]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=1701030458]
+layout_mode = 2
+
+[node name="WebDialog" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=2085903547]
 layout_mode = 2
 text = "Open File Dialog Web"
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/Button" to="FileDialogWeb" method="popup_file_dialog_web"]
+[node name="DefaultDialog" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1020854327]
+layout_mode = 2
+text = "Open File Dialog"
+
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/WebDialog" to="FileDialogWeb" method="popup_file_dialog_web"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/DefaultDialog" to="FileDialog" method="popup_file_dialog"]

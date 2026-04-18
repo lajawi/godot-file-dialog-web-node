@@ -34,12 +34,75 @@ const setFileMode = (fileMode) => {
 	}
 };
 
-let fileSelected;
-/** @param {any} onFileSelected */
-const setFileSelectedCallback = (onFileSelected) => fileSelected = onFileSelected;
+/** @type {CallableFunction} */
+let filesSelectedCallback;
+/** @param {any} onFilesSelected */
+const setFilesSelectedCallback = (onFilesSelected) => filesSelectedCallback = onFilesSelected;
+
+/** @type {CallableFunction} */
+let fileUploadedCallback;
+/** @param {any} onFileUploaded */
+const setFileUploadedCallback = (onFileUploaded) => fileUploadedCallback = onFileUploaded;
 
 const popupFileDialog = () => {
 	input.click();
+};
+
+/** @param {any} event */
+input.onchange = (event) => {
+	/** @type {HTMLInputElement} */
+	let target = event.target;
+	if (!target) {
+		return;
+	}
+
+	let files = target.files;
+	if (!files) {
+		return;
+	}
+
+	/** @type {Array<String>} */
+	let selectedFiles = [];
+
+	for (let file of files) {
+		selectedFiles.push(file.name);
+	}
+
+	filesSelectedCallback(...selectedFiles);
+
+	for (let file of files) {
+		let fileName = file.name;
+		let relativePath = file.webkitRelativePath;
+		let type = file.type;
+
+		let reader = new FileReader();
+
+		if (type.startsWith("text/"))
+			reader.readAsText(file);
+		else
+			reader.readAsDataURL(file);
+
+		reader.onload = (readerEvent) => {
+			if (!readerEvent.target) {
+				return;
+			}
+
+			if (readerEvent.target.readyState !== FileReader.DONE) {
+				return;
+			}
+
+			let data = readerEvent.target.result;
+
+			if (typeof(data) !== "string") {
+				return;
+			}
+
+			if (!type.startsWith("text/"))
+				data = data.split(",")[1];
+
+			fileUploadedCallback(fileName, relativePath, type, data);
+		}
+	}
 };
 
 
@@ -47,7 +110,8 @@ function fileDialogWebInit() {
 	let _interface = {
 		setFilters,
 		setFileMode,
-		setFileSelectedCallback,
+		setFilesSelectedCallback,
+		setFileUploadedCallback,
 		popupFileDialog,
 	}
 
