@@ -1,23 +1,70 @@
 [gd_scene format=3 uid="uid://ljujidls0lna"]
 
 [ext_resource type="Script" uid="uid://b75unaeamgjm2" path="res://addons/file-dialog-web/file_dialog_web.gd" id="1_d75w3"]
+[ext_resource type="Script" uid="uid://lhem01m0035v" path="res://option_button.gd" id="2_acvag"]
+[ext_resource type="Texture2D" uid="uid://lchhg33do63k" path="res://example.png" id="3_anajk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d75w3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
 
 [node name="Node" type="Node" unique_id=851985838]
 
-[node name="FileDialogWeb" type="FileDialog" parent="." unique_id=2011503193]
+[node name="DownloadDialogWeb" type="FileDialog" parent="." unique_id=2011503193]
 oversampling_override = 1.0
-title = "Open a File"
-file_mode = 0
+display_mode = 1
 access = 2
-filters = PackedStringArray("*.png;PNGs;image/png", "*.jpg,*.jpeg;JPEGs;image/jpeg")
 use_native_dialog = true
 script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
-[node name="FileDialog" type="FileDialog" parent="." unique_id=1279838868]
-title = "Open a File or Directory"
-file_mode = 3
+[node name="UploadTextDialogWeb" type="FileDialog" parent="." unique_id=167203348]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+display_mode = 1
 access = 2
+filters = PackedStringArray("*.txt;Text Files;text/plain", "*.md;Markdown Files;text/markdown")
+use_native_dialog = true
+script = ExtResource("1_d75w3")
+metadata/_custom_type_script = "uid://b75unaeamgjm2"
+
+[node name="UploadImageDialogWeb" type="FileDialog" parent="." unique_id=381504922]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png;PNG Files;image/png", "*.jpg,*.jpeg;JPEG Files;image/jpeg")
+use_native_dialog = true
+script = ExtResource("1_d75w3")
+metadata/_custom_type_script = "uid://b75unaeamgjm2"
+
+[node name="DownloadDialog" type="FileDialog" parent="." unique_id=2047395080]
+oversampling_override = 1.0
+display_mode = 1
+access = 2
+use_native_dialog = true
+
+[node name="UploadTextDialog" type="FileDialog" parent="." unique_id=92718564]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.txt;Text Files;text/plain", "*.md;Markdown Files;text/markdown")
+use_native_dialog = true
+
+[node name="UploadImageDialog" type="FileDialog" parent="." unique_id=292872815]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png;PNG Files;image/png", "*.jpg,*.jpeg;JPEG Files;image/jpeg")
 use_native_dialog = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2075393158]
@@ -30,24 +77,87 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=1354072811]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control" unique_id=1533357796]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d75w3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=1701030458]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer" unique_id=488756523]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer" unique_id=1296026824]
 layout_mode = 2
 
-[node name="WebDialog" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=2085903547]
+[node name="Topbar" type="CenterContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=1291520310]
 layout_mode = 2
-text = "Open File Dialog Web"
 
-[node name="DefaultDialog" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1020854327]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar" unique_id=96548853]
 layout_mode = 2
-text = "Open File Dialog"
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/WebDialog" to="FileDialogWeb" method="popup_file_dialog_web"]
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/DefaultDialog" to="FileDialog" method="popup_file_dialog"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer" unique_id=1546995869]
+layout_mode = 2
+text = "Choose your Action:"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer" unique_id=2079676482 node_paths=PackedStringArray("_dialog_web_download", "_dialog_web_upload_text", "_dialog_web_upload_image", "_ui_text", "_ui_image")]
+layout_mode = 2
+tooltip_text = "Choose Action"
+allow_reselect = true
+item_count = 6
+popup/item_0/text = "Download"
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "Text"
+popup/item_1/id = 1
+popup/item_2/text = "Image"
+popup/item_2/id = 2
+popup/item_3/text = "Upload"
+popup/item_3/id = 3
+popup/item_3/separator = true
+popup/item_4/text = "Text"
+popup/item_4/id = 4
+popup/item_5/text = "Image"
+popup/item_5/id = 5
+script = ExtResource("2_acvag")
+_dialog_web_download = NodePath("../../../../../../../../DownloadDialogWeb")
+_dialog_web_upload_text = NodePath("../../../../../../../../UploadTextDialogWeb")
+_dialog_web_upload_image = NodePath("../../../../../../../../UploadImageDialogWeb")
+_file_text_path = "res://example.md"
+_file_image = ExtResource("3_anajk")
+_ui_text = NodePath("../../../Content/MarginContainer/ScrollContainer/UploadedText")
+_ui_image = NodePath("../../../Content/MarginContainer/UploadedImage")
+
+[node name="Content" type="PanelContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=467549839]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Content" unique_id=1032437721]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="UploadedImage" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Content/MarginContainer" unique_id=1627490889]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Content/MarginContainer" unique_id=239952993]
+layout_mode = 2
+
+[node name="UploadedText" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Content/MarginContainer/ScrollContainer" unique_id=713924737]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+autowrap_mode = 3
+
+[connection signal="item_selected" from="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" to="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" method="_on_item_selected"]
