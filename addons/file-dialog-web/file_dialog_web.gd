@@ -8,7 +8,7 @@ signal web_files_selected(files: Array[File])
 
 const JS_FILE_PATH := "res://addons/file-dialog-web/file_dialog_web.js"
 
-@export var file: PackedByteArray
+var file_buffer: PackedByteArray
 
 var _js_interface: JavaScriptObject
 var _on_files_selected_callback: JavaScriptObject
@@ -34,7 +34,10 @@ func popup_file_dialog_web() -> void:
 		FILE_MODE_OPEN_ANY:
 			pass
 		FILE_MODE_SAVE_FILE:
-			pass
+			if not file_buffer:
+				push_error("File buffer empty, please provide a byte array.")
+				return
+			return JavaScriptBridge.download_buffer(file_buffer, current_file)
 		_:
 			return popup_file_dialog()
 
@@ -44,6 +47,7 @@ func popup_file_dialog_web() -> void:
 
 	var js_file := FileAccess.open(JS_FILE_PATH, FileAccess.READ)
 	var js := js_file.get_as_text()
+	js_file.close()
 
 	JavaScriptBridge.eval(js, true)
 
