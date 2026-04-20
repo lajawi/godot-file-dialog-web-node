@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 
-const JsEditorExportPlugin = preload("res://addons/file-dialog-web/editor_export_plugin.gd")
+const JsEditorExportPlugin = preload("res://addons/file_dialog_web/editor_export_plugin.gd")
 var export_plugin = JsEditorExportPlugin.new()
 
 

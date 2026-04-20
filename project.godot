@@ -19,12 +19,12 @@ config/icon="uid://c34eqc6ri3jii"
 
 gdscript/warnings/directory_rules={
 "res://addons": 0,
-"res://addons/file-dialog-web/": 1
+"res://addons/file_dialog_web/": 1
 }
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/file-dialog-web/plugin.cfg")
+enabled=PackedStringArray("res://addons/file_dialog_web/plugin.cfg")
 
 [physics]
 

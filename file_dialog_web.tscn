@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ljujidls0lna"]
 
-[ext_resource type="Script" uid="uid://b75unaeamgjm2" path="res://addons/file-dialog-web/file_dialog_web.gd" id="1_d75w3"]
+[ext_resource type="Script" uid="uid://b75unaeamgjm2" path="res://addons/file_dialog_web/file_dialog_web.gd" id="1_d75w3"]
 [ext_resource type="Script" uid="uid://lhem01m0035v" path="res://option_button.gd" id="2_acvag"]
 [ext_resource type="Texture2D" uid="uid://lchhg33do63k" path="res://example.png" id="3_anajk"]
 

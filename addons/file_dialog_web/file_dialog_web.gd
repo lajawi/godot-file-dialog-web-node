@@ -6,7 +6,7 @@ signal web_dir_selected(files: Array[File])
 signal web_file_selected(file: File)
 signal web_files_selected(files: Array[File])
 
-const JS_FILE_PATH := "res://addons/file-dialog-web/file_dialog_web.js"
+const JS_FILE_PATH := "res://addons/file_dialog_web/file_dialog_web.js"
 
 var file_buffer: PackedByteArray
 
@@ -42,7 +42,7 @@ func popup_file_dialog_web() -> void:
 			return popup_file_dialog()
 
 	if not FileAccess.file_exists(JS_FILE_PATH):
-		push_error("JS file not included in export. Enable the plugin in the Project Settings > Plugins, or include '*.js' files in general or 'addons/file-dialog-web/file_dialog_web.js' specifically in the export's 'include_filter' setting manually.")
+		push_error("JS file not included in export. Enable the plugin in the Project Settings > Plugins, or include '*.js' files in general or 'addons/file_dialog_web/file_dialog_web.js' specifically in the export's 'include_filter' setting manually.")
 		return popup_file_dialog()
 
 	var js_file := FileAccess.open(JS_FILE_PATH, FileAccess.READ)
