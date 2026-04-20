@@ -42,7 +42,7 @@ func popup_file_dialog_web() -> void:
 			return popup_file_dialog()
 
 	if not FileAccess.file_exists(JS_FILE_PATH):
-		push_error("JS file not included in export. Include '*.js' files in general or 'addons/file-dialog-web/file_dialog_web.js' specifically in the export's 'include_filter' setting.")
+		push_error("JS file not included in export. Enable the plugin in the Project Settings > Plugins, or include '*.js' files in general or 'addons/file-dialog-web/file_dialog_web.js' specifically in the export's 'include_filter' setting manually.")
 		return popup_file_dialog()
 
 	var js_file := FileAccess.open(JS_FILE_PATH, FileAccess.READ)
