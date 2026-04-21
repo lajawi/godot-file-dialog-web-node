@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://b75unaeamgjm2" path="res://addons/file_dialog_web/file_dialog_web.gd" id="1_d75w3"]
 [ext_resource type="Script" uid="uid://lhem01m0035v" path="res://option_button.gd" id="2_acvag"]
 [ext_resource type="Texture2D" uid="uid://lchhg33do63k" path="res://example.png" id="3_anajk"]
+[ext_resource type="Script" uid="uid://bmn3t2yftscbt" path="res://options/download_text.gd" id="4_ymk6g"]
+[ext_resource type="Script" uid="uid://dgbqyjj7wc7bg" path="res://options/download_image.gd" id="5_4rfir"]
+[ext_resource type="Script" uid="uid://d26x7gpj5gi2d" path="res://options/upload_text.gd" id="6_c31gt"]
+[ext_resource type="Script" uid="uid://o05wkwavdam3" path="res://options/upload_image.gd" id="7_2xyr1"]
+[ext_resource type="Script" uid="uid://bwcqvxjcfvqtt" path="res://options/upload_multiple_images.gd" id="8_intfm"]
+[ext_resource type="Script" uid="uid://evtd14xbcyub" path="res://options/upload_folder.gd" id="9_f7yyv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d75w3"]
 content_margin_left = 0.0
@@ -14,6 +20,7 @@ bg_color = Color(0.1, 0.1, 0.1, 0.6)
 [node name="Node" type="Node" unique_id=851985838]
 
 [node name="DownloadDialogWeb" type="FileDialog" parent="." unique_id=2011503193]
+unique_name_in_owner = true
 oversampling_override = 1.0
 display_mode = 1
 access = 2
@@ -22,6 +29,7 @@ script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
 [node name="UploadTextDialogWeb" type="FileDialog" parent="." unique_id=167203348]
+unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Open a File"
 file_mode = 0
@@ -33,6 +41,7 @@ script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
 [node name="UploadImageDialogWeb" type="FileDialog" parent="." unique_id=381504922]
+unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Open a File"
 file_mode = 0
@@ -44,6 +53,7 @@ script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
 [node name="UploadMultipleImagesDialogWeb" type="FileDialog" parent="." unique_id=1847898321]
+unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Open File(s)"
 file_mode = 1
@@ -55,6 +65,7 @@ script = ExtResource("1_d75w3")
 metadata/_custom_type_script = "uid://b75unaeamgjm2"
 
 [node name="UploadFolderDialogWeb" type="FileDialog" parent="." unique_id=1260846850]
+unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Open a Directory"
 file_mode = 2
@@ -103,7 +114,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Choose your Action:"
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer" unique_id=2079676482 node_paths=PackedStringArray("_dialog_web_download", "_dialog_web_upload_text", "_dialog_web_upload_image", "_dialog_web_upload_files", "_dialog_web_upload_folder", "_ui_text", "_ui_image")]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer" unique_id=2079676482 node_paths=PackedStringArray("_node_download_text", "_node_download_image", "_node_upload_text", "_node_upload_image", "_node_upload_images", "_node_upload_folder", "_ui_text", "_ui_image")]
 layout_mode = 2
 tooltip_text = "Choose Action"
 allow_reselect = true
@@ -111,31 +122,50 @@ item_count = 8
 popup/item_0/text = "Download"
 popup/item_0/id = 0
 popup/item_0/separator = true
-popup/item_1/text = "Text"
+popup/item_1/text = "Download Text"
 popup/item_1/id = 1
-popup/item_2/text = "Image"
+popup/item_2/text = "Download Image"
 popup/item_2/id = 2
 popup/item_3/text = "Upload"
 popup/item_3/id = 3
 popup/item_3/separator = true
-popup/item_4/text = "Text"
+popup/item_4/text = "Upload Text"
 popup/item_4/id = 4
-popup/item_5/text = "Image"
+popup/item_5/text = "Upload  Image"
 popup/item_5/id = 5
-popup/item_6/text = "Multiple Images"
+popup/item_6/text = "Upload Multiple Images"
 popup/item_6/id = 6
-popup/item_7/text = "Folder"
+popup/item_7/text = "Upload Folder"
 popup/item_7/id = 7
 script = ExtResource("2_acvag")
-_dialog_web_download = NodePath("../../../../../../../../DownloadDialogWeb")
-_dialog_web_upload_text = NodePath("../../../../../../../../UploadTextDialogWeb")
-_dialog_web_upload_image = NodePath("../../../../../../../../UploadImageDialogWeb")
-_dialog_web_upload_files = NodePath("../../../../../../../../UploadMultipleImagesDialogWeb")
-_dialog_web_upload_folder = NodePath("../../../../../../../../UploadFolderDialogWeb")
-_file_text_path = "res://example.md"
-_file_image = ExtResource("3_anajk")
+_node_download_text = NodePath("DownloadText")
+_node_download_image = NodePath("DownloadImage")
+_node_upload_text = NodePath("UploadText")
+_node_upload_image = NodePath("UploadImage")
+_node_upload_images = NodePath("UploadMultipleImages")
+_node_upload_folder = NodePath("UploadFolder")
 _ui_text = NodePath("../../../Content/MarginContainer/ScrollContainer/UploadedText")
 _ui_image = NodePath("../../../Content/MarginContainer/UploadedImage")
+
+[node name="DownloadText" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=1503900938]
+script = ExtResource("4_ymk6g")
+_text_file = "res://example.md"
+
+[node name="DownloadImage" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=160666259]
+script = ExtResource("5_4rfir")
+_image = ExtResource("3_anajk")
+
+[node name="UploadText" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=538753435]
+script = ExtResource("6_c31gt")
+
+[node name="UploadImage" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=346231600]
+script = ExtResource("7_2xyr1")
+
+[node name="UploadMultipleImages" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=1057505986]
+script = ExtResource("8_intfm")
+
+[node name="UploadFolder" type="Node" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer/Topbar/HBoxContainer/OptionButton" unique_id=692407843]
+script = ExtResource("9_f7yyv")
 
 [node name="Content" type="PanelContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=467549839]
 layout_mode = 2
