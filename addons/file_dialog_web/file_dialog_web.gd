@@ -1,3 +1,5 @@
+@icon("res://addons/file_dialog_web/FileDialogWeb.svg")
+
 class_name FileDialogWeb
 extends FileDialog
 
